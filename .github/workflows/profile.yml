@@ -1,0 +1,193 @@
+# ══════════════════════════════════════════════════════════════════════════════
+#  Profile README — all dynamic assets, one workflow.
+#
+#  Why one file instead of five: every generator below commits to `main`.
+#  Run them as separate workflows and they push simultaneously, one wins, the
+#  rest die on "non-fast-forward". Chaining them with `needs:` makes that
+#  impossible. The snake is the exception — it targets its own branch, so it
+#  runs in parallel.
+#
+#  Required secrets:
+#    METRICS_TOKEN   classic PAT, scopes: public_repo, read:user  (metrics job only)
+#    WAKATIME_API_KEY                                             (optional)
+#  Everything else uses the built-in GITHUB_TOKEN.
+# ══════════════════════════════════════════════════════════════════════════════
+
+name: Profile
+
+on:
+  schedule:
+    - cron: "0 2 * * *"   # 02:00 UTC daily
+  workflow_dispatch:       # ...and whenever you press the button
+
+# Deliberately NO `push:` trigger. The metrics job commits using a PAT, and
+# PAT-authored pushes DO re-trigger workflows — a push trigger here would loop
+# the workflow against itself and burn your Actions minutes overnight.
+
+# Never let two runs stomp on each other.
+concurrency:
+  group: profile-assets
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  # ── 1. Snake eating the contribution grid ──────────────────────────────────
+  #    Targets the `output` branch, so it can run alongside everything else.
+  snake:
+    name: Snake
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: Platane/snk/svg-only@v3
+        id: snake
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            dist/snake.svg?palette=github-light
+            dist/snake-dark.svg?palette=github-dark&color_snake=#F0A202
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push to output branch
+        uses: crazy-max/ghaction-github-pages@v4
+        with:
+          target_branch: output
+          build_dir: dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # ── 2. Isometric 3D contribution calendar ──────────────────────────────────
+  contrib-3d:
+    name: 3D calendar
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: yoshi389111/github-profile-3d-contrib@latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          USERNAME: ${{ github.repository_owner }}
+
+      - name: Commit
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add profile-3d-contrib
+          git diff --staged --quiet || git commit -m "chore: 3d contribution calendar"
+          git push
+
+  # ── 3. Stats + language cards, generated INTO the repo ─────────────────────
+  #    This is the durable path: the SVGs live in your repo, so they are served
+  #    by GitHub itself and can never 429 or go down mid-interview.
+  #    Uncomment the matching lines in README.md to switch over from the live API.
+  cards:
+    name: Stats cards
+    needs: contrib-3d
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+
+      - name: Generate stats card
+        uses: stats-organization/github-readme-stats-action@v2
+        with:
+          card: stats
+          options: username=${{ github.repository_owner }}&show_icons=true&include_all_commits=true&rank_icon=percentile&hide_border=true&bg_color=00000000&title_color=F0A202&text_color=C9D1D9&icon_color=D64933&ring_color=F0A202
+          path: assets/stats.svg
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Generate top languages card
+        uses: stats-organization/github-readme-stats-action@v2
+        with:
+          card: top-langs
+          options: username=${{ github.repository_owner }}&layout=donut&langs_count=6&size_weight=0.5&count_weight=0.5&hide_border=true&bg_color=00000000&title_color=F0A202&text_color=C9D1D9
+          path: assets/top-langs.svg
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Commit
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase --autostash
+          git add assets/*.svg
+          git diff --staged --quiet || git commit -m "chore: stats cards"
+          git push
+
+  # ── 4. Full metrics infographic ────────────────────────────────────────────
+  #    Needs a PAT — GITHUB_TOKEN can't see the data most of these plugins want.
+  metrics:
+    name: Metrics infographic
+    needs: cards
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: lowlighter/metrics@latest
+        with:
+          token: ${{ secrets.METRICS_TOKEN }}
+          user: ${{ github.repository_owner }}
+          filename: assets/metrics.svg
+          committer_branch: main
+          template: classic
+          base: header, activity, community, repositories, metadata
+          config_timezone: Asia/Kolkata          # ← your timezone
+          config_display: large
+
+          plugin_isocalendar: yes
+          plugin_isocalendar_duration: full-year
+
+          plugin_languages: yes
+          plugin_languages_details: bytes-size, percentage
+          plugin_languages_limit: 8
+          plugin_languages_sections: most-used
+
+          plugin_achievements: yes
+          plugin_achievements_threshold: B
+          plugin_achievements_secrets: yes
+          plugin_achievements_display: compact
+
+          plugin_habits: yes
+          plugin_habits_from: 200
+          plugin_habits_facts: yes
+          plugin_habits_charts: yes
+
+          plugin_lines: yes
+
+  # ── 5. Latest writing, pulled from RSS ─────────────────────────────────────
+  blog:
+    name: Blog posts
+    needs: metrics
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+
+      - uses: gautamkrishnar/blog-post-workflow@v1
+        with:
+          max_post_count: 4
+          feed_list: "https://YOUR-SITE.com/feed.xml"   # ← your RSS URL(s), comma-separated
+          commit_message: "chore: latest posts"
+
+  # ── 6. Recent public activity ──────────────────────────────────────────────
+  activity:
+    name: Recent activity
+    needs: blog
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+
+      - uses: jamesgeorge007/github-activity-readme@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          COMMIT_MSG: "chore: recent activity"
+          MAX_LINES: 5

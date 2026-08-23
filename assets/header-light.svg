@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 260" width="1200" height="260" role="img" aria-label="Sohan Sarkar — backend and distributed systems engineer">
+  <title>Sohan Sarkar — backend and distributed systems engineer</title>
+
+  <defs>
+    <pattern id="grid" width="26" height="26" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="1" r="1" fill="#E7EDF4"/>
+    </pattern>
+
+    <linearGradient id="sweep" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#B87400" stop-opacity="0"/>
+      <stop offset="50%"  stop-color="#B87400" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#B87400" stop-opacity="0"/>
+    </linearGradient>
+
+    <linearGradient id="rule" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#B87400" stop-opacity="1"/>
+      <stop offset="55%"  stop-color="#B0341F" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#B0341F" stop-opacity="0"/>
+    </linearGradient>
+
+    <linearGradient id="fade" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%"   stop-color="#B87400" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#B87400" stop-opacity="0.15"/>
+    </linearGradient>
+  </defs>
+
+  <!-- canvas -->
+  <rect width="1200" height="260" fill="#FFFFFF"/>
+  <rect width="1200" height="260" fill="url(#grid)"/>
+
+  <!-- ambient scan sweep -->
+  <rect x="-360" y="0" width="360" height="260" fill="url(#sweep)">
+    <animateTransform attributeName="transform" type="translate"
+                      from="0 0" to="1560 0" dur="7s" repeatCount="indefinite"/>
+  </rect>
+
+  <!-- signature bar marker -->
+  <rect x="70" y="66" width="6" height="116" fill="#B87400">
+    <animate attributeName="opacity" values="1;0.45;1" dur="3.2s" repeatCount="indefinite"/>
+  </rect>
+  <rect x="70" y="66" width="6" height="30" fill="#B0341F"/>
+
+  <!-- eyebrow -->
+  <text x="102" y="82" font-family="ui-monospace, 'JetBrains Mono', 'SFMono-Regular', Consolas, Menlo, monospace"
+        font-size="13" letter-spacing="4.5" fill="#57606A">BACKEND &#183; DISTRIBUTED SYSTEMS</text>
+
+  <!-- name -->
+  <text x="100" y="140" font-family="Inter, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
+        font-size="60" font-weight="700" letter-spacing="-1" fill="#0D1117">Sohan Sarkar</text>
+
+  <!-- thesis line -->
+  <text x="103" y="176" font-family="ui-monospace, 'JetBrains Mono', 'SFMono-Regular', Consolas, Menlo, monospace"
+        font-size="16" fill="#B87400">I build event-driven backends, and I solve for the edge case first.</text>
+
+  <!-- status pill -->
+  <g>
+    <rect x="898" y="60" width="202" height="30" rx="15" fill="#F6F8FA" stroke="#D0D7DE" stroke-width="1"/>
+    <circle cx="918" cy="75" r="4.5" fill="#B87400">
+      <animate attributeName="opacity" values="1;0.15;1" dur="1.7s" repeatCount="indefinite"/>
+    </circle>
+    <text x="932" y="80" font-family="ui-monospace, 'JetBrains Mono', 'SFMono-Regular', Consolas, Menlo, monospace"
+          font-size="12" letter-spacing="1.6" fill="#57606A">OPEN TO INTERNSHIPS</text>
+  </g>
+
+  <!-- telemetry trace: static base (always visible) + animated draw-on overlay -->
+  <polyline
+    points="100,224 148,224 168,208 188,224 236,224 256,232 276,214 296,224 372,224 392,198 412,224 470,224 490,218 510,226 530,224 606,224 626,206 646,224 704,224 724,228 744,216 764,224 840,224 860,210 880,224 950,224 970,220 990,226 1010,224 1100,224"
+    fill="none" stroke="#D0D7DE" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline
+    points="100,224 148,224 168,208 188,224 236,224 256,232 276,214 296,224 372,224 392,198 412,224 470,224 490,218 510,226 530,224 606,224 626,206 646,224 704,224 724,228 744,216 764,224 840,224 860,210 880,224 950,224 970,220 990,226 1010,224 1100,224"
+    fill="none" stroke="url(#fade)" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round"
+    stroke-dasharray="1400" stroke-dashoffset="1400">
+    <animate attributeName="stroke-dashoffset" values="1400;0;0;1400"
+             keyTimes="0;0.45;0.85;1" dur="9s" repeatCount="indefinite"/>
+  </polyline>
+
+  <!-- baseline rule -->
+  <rect x="100" y="243" width="1000" height="2" fill="url(#rule)"/>
+
+  <!-- corner ticks -->
+  <rect x="70" y="230" width="14" height="2" fill="#D0D7DE"/>
+  <rect x="70" y="230" width="2" height="14" fill="#D0D7DE"/>
+</svg>
