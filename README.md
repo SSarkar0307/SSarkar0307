@@ -21,8 +21,8 @@
 
 <br>
 
-<a href="https://linkedin.com/in/FILL-LINKEDIN-SLUG"><img alt="LinkedIn" src="https://img.shields.io/badge/LinkedIn-Connect-8B949E?style=flat-square&labelColor=0D1117&logo=linkedin&logoColor=8B949E"></a>
-<a href="https://leetcode.com/u/FILL-LEETCODE-USERNAME/"><img alt="LeetCode" src="https://img.shields.io/badge/LeetCode-Knight%201880%2B-F0A202?style=flat-square&labelColor=0D1117&logo=leetcode&logoColor=F0A202"></a>
+<a href="https://www.linkedin.com/in/sohan-sarkar-2726b5327/"><img alt="LinkedIn" src="https://img.shields.io/badge/LinkedIn-Connect-8B949E?style=flat-square&labelColor=0D1117&logo=linkedin&logoColor=8B949E"></a>
+<a href="https://leetcode.com/u/lackblack99/"><img alt="LeetCode" src="https://img.shields.io/badge/LeetCode-Knight%201880%2B-F0A202?style=flat-square&labelColor=0D1117&logo=leetcode&logoColor=F0A202"></a>
 <a href="mailto:sarkarsohan.3706@gmail.com"><img alt="Email" src="https://img.shields.io/badge/Email-sarkarsohan.3706-8B949E?style=flat-square&labelColor=0D1117&logo=gmail&logoColor=8B949E"></a>
 
 </div>
@@ -53,7 +53,7 @@ building the APIs and governance pipelines between AI agents and enterprise syst
 approvals, policy checks, risk classification, audit trails. Compliance code is unglamorous and
 completely unforgiving, which turned out to be good training.
 
-Competitive programming is where the instinct came from. 800+ problems solved, LeetCode Knight at
+Competitive programming is where the instinct came from. 1000+ problems solved, LeetCode Knight at
 1880+. It taught me to go looking for the input that breaks something before I go looking for the
 one that works — which is most of what backend engineering turns out to be.
 
@@ -70,7 +70,7 @@ IIT Madras**, concurrently, since 2024.
 
 | | |
 |:--|:--|
-| **Building** | «FILL-PROJECT-NAME» — an event-driven workspace for engineering teams. CRDT collaborative editing, Kafka event bus, OpenSearch, and a knowledge graph that links docs to the PRs, incidents and ADRs behind them. Public in 1–2 months. |
+| **Building** | «GOTHAM» — an event-driven workspace for engineering teams. CRDT collaborative editing, Kafka event bus, OpenSearch, and a knowledge graph that links docs to the PRs, incidents and ADRs behind them. Public in 1–2 months. |
 | **Recently shipped** | AI-execution governance at OpsAI — policy engine, risk classification, audit logging |
 | **Practising daily** | Low-level design problems → [`Low-Level-Design`](https://github.com/SSarkar0307/Low-Level-Design) |
 | **Learning** | Distributed consensus and CRDTs, properly rather than by vibes |
@@ -108,7 +108,7 @@ Updated most weeks. <sub>`Java/C++` · `design patterns`</sub>
 
 <br>
 
-### In progress — «FILL-PROJECT-NAME»
+### In progress — «GOTHAM»
 
 An event-driven collaboration workspace built for engineering teams specifically, not a Notion clone.
 The thesis is that **everything should be connected**: a document knows about the pull requests,
@@ -134,7 +134,7 @@ editing layer survives a reconnect storm.
 <div align="center">
 
 <img width="58%" alt="LeetCode statistics"
-     src="https://leetcard.jacoblin.cool/FILL-LEETCODE-USERNAME?theme=light,dark&font=JetBrains%20Mono&ext=heatmap">
+     src="https://leetcard.jacoblin.cool/lackblack99?theme=light,dark&font=JetBrains%20Mono&ext=heatmap">
 
 </div>
 
@@ -146,6 +146,7 @@ editing layer survives a reconnect storm.
 | 🥈 | **2nd runner-up** — Synapse-AI'26, AI×Sports hackathon at DTU, 350+ participants |
 | 🎖 | **Finalist** — HackJMI 2025 (NavVision, CV navigation aid for the visually impaired) |
 | 🎖 | **Runner-up** — Algo Clash 3X, GDG JMI |
+| 🎖 | **Finalist** in Several Other Hackathons & Contests...|
 
 <br>
 
@@ -257,8 +258,8 @@ editing layer survives a reconnect storm.
 <tr>
 <td><b>Languages</b></td>
 <td>
-<img alt="C++, C, Python, JavaScript, TypeScript" src="https://skillicons.dev/icons?i=cpp,c,py,js,ts&theme=dark">
-<br><sub>C++ for contests, TS for everything else</sub>
+<img alt="C++, Java, Python, JavaScript, TypeScript" src="https://skillicons.dev/icons?i=cpp,java,py,js,ts&theme=dark">
+<br><sub>C++ / Python for contests, Java for LLD, JS/TS for everything else</sub>
 </td>
 </tr>
 <tr>
